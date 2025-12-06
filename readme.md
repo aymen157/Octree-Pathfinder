@@ -49,6 +49,8 @@ private void DrawVoxel(Voxel voxel)
     }
 }
 ```
+
+
 # Showcase
 
 As an example, we use the `xyzrgb_dragon` model as our level/map, and we place 2 boid sphere agents.
@@ -80,6 +82,29 @@ We place the dragon as the level, and spheres as our end/start points. (see code
   <img src="media/eg1.png" width="300" alt="Demo result 2">
   <img src="media/eg2.png" width="300" alt="Demo result 3">
 </div>
+
+
+# How it works? (Non technical simple explanation)
+1. Imagine a big cube representing your entire 3D world.  
+2. Split it into cubes (this is the startSize=64 param)  
+3. Check each smaller cube: is it empty or blocked?  
+4. If a cube is partially filled, split it into 8 even smaller cubes.  
+5. Keep splitting cubes until you reach the needed detail (this is the octreeMaxDepth=4 param)
+6. Now your world is a tree of cubes: big cubes for empty space, small cubes near obstacles.  
+7. Pick a starting point in the world.  
+8. Pick a goal somewhere else in the world.  
+9. Look at the largest cubes around the start and goal.
+10. Try to move through big empty cubes first. (this is where performance come from, compared to uniform grid)
+11. If you hit a cube that’s partially filled, slow down and look closer.  
+12. Move into smaller cubes inside that area. 
+13. Keep choosing the biggest empty cubes you can move through.
+14. When you get near obstacles, switch to the smallest cubes for precision.
+15. Check which neighboring cubes you can move into.
+16. Choose the neighbor that seems closest to your goal.
+17. Step into that cube and repeat.
+18. Each step alternates between moving through big empty spaces and zooming into small tricky areas.
+19. Keep doing this until your path reaches the goal.
+20. You’ve now found a route that flows through empty space and carefully avoids obstacles.
 
 
 ### Performance
