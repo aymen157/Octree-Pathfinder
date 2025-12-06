@@ -115,6 +115,7 @@ For instance, on an i7 12k, per path: Euc ~ on avg 20ms, Manh ~ 10ms, SqEuc ~ 1m
 This is not multithreaded/parallelized by the way. so you can squeeze out more performance out of it.
 In the case of multi agent, we can also implement a GPU Compute Shader in which we batch dispatch the Agents points and can get multiple paths in microseconds (for example in a roguelike where there are hundreds of flying monsters) (or in real life controlling hundreds of drones that needs to go thru pre-modeled complex streets or buildings) but that's another thing.
 Generally, if you do not care about optimal path, and you want to rather prioritize performance, a steering approach is better.
+PS: this is not very optimal as is, for example we can reduce dictionary lookups/hashing by refactoring and using arrays instead. the Voxelization afaik can be entirely bit based using CPU instristics, like that we completely avoid deep hierarchy loops, and get a better CPU cache locality.
 
 ### License
 Use it as you wish.
