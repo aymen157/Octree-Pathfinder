@@ -1,3 +1,8 @@
+# But Why?
+
+Classic navmesh is performant on 2d surface but cannot handle free 3d space. It definitely cannot handle flying agents such as ingame-birds, robot drones, dragons, etc..
+This is an attempt to find a solution to this problem.
+
 # Usage example
 
 ```cs
@@ -28,6 +33,7 @@ private void OnDrawGizmos()
     if (root != null) // visualize octree
         DrawVoxel(root);
 }
+// recursivelty draw (only the leaves) of the sparse voxel octree
 private void DrawVoxel(Voxel voxel)
 {
     Gizmos.color = voxel.colliding ? Color.red : Color.green;
@@ -89,3 +95,8 @@ Generally, if you do not care about optimal path, and you want to rather priorit
 Use it as you wish.
 
 
+### References
+
+Original inspiration is from the 2016 paper `PATHFINDING IN 3D SPACE - A*, THETA*, LAZY THETA* IN OCTREE STRUCTURE` by `Ruoqi He & Chia-Man Hung`.
+
+2006 IEEE `3D Field D*: Improved Path Planning and Replanning in Three Dimensions` by `Joseph Carsten∗, Dave Ferguson, and Anthony Stentz` from `Carnegie Mellon University`
